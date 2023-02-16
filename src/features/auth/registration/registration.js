@@ -7,9 +7,8 @@ import * as Yup from "yup";
 import {
   CONFIRM_PASSWORD_REQUIRED,
   EMAIL_REQUIRED,
-  FIRST_NAME_REQUIRED,
+  USER_NAME_REQUIRED,
   INVALID_EMAIL_ADDRESS,
-  LAST_NAME_REQUIRED,
   PASSWORD_REQUIRED,
 } from "constants/features/auth";
 // import { registerUser } from "../actions/auth.actions";
@@ -33,26 +32,23 @@ export const Registration = () => {
   // }, [authState]);
 
   const defaultValues = {
-    firstName: "",
-    lastName: "",
+    username: "",
     email: "",
     password: "",
     confirmPassword: "",
   };
 
   const yupObject = Yup.object({
-    firstName: Yup.string().required(FIRST_NAME_REQUIRED),
-    lastName: Yup.string().required(LAST_NAME_REQUIRED),
+    username: Yup.string().required(USER_NAME_REQUIRED),
     email: Yup.string().email(INVALID_EMAIL_ADDRESS).required(EMAIL_REQUIRED),
     password: Yup.string().required(PASSWORD_REQUIRED),
     confirmPassword: Yup.string().required(CONFIRM_PASSWORD_REQUIRED),
   });
 
   const handleSubmit = (values) => {
-    const { firstName, lastName, email, password, confirmPassword } = values;
+    const { username, email, password, confirmPassword } = values;
     const jsonData = {
-      firstName,
-      lastName,
+      username,
       email,
       password,
       confirmPassword,

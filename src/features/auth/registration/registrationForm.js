@@ -7,26 +7,15 @@ import { TextField } from "elements/TextField";
 const RegistrationForm = ({ formik }) => (
   <Form id="loginForm" onSubmit={formik.handleSubmit}>
     <Grid container spacing={2}>
-      <Grid item xs={6}>
+      <Grid item xs={12}>
         <TextField
-          label="First Name"
-          name="firstName"
-          value={formik.values.firstName}
+          label=" username"
+          name="username"
+          value={formik.values.username}
           onChange={formik.handleChange}
-          error={formik.touched.firstName && Boolean(formik.errors.firstName)}
-          helperText={formik.touched.firstName && formik.errors.firstName}
-          id="firstName"
-        />
-      </Grid>
-      <Grid item xs={6}>
-        <TextField
-          label="Last Name"
-          name="lastName"
-          value={formik.values.lastName}
-          onChange={formik.handleChange}
-          error={formik.touched.lastName && Boolean(formik.errors.lastName)}
-          helperText={formik.touched.lastName && formik.errors.lastName}
-          id="lastName"
+          error={formik.touched.userName && Boolean(formik.errors.username)}
+          helperText={formik.touched.userName && formik.errors.username}
+          id="username"
         />
       </Grid>
       <Grid item xs={12}>
