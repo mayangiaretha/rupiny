@@ -9,13 +9,13 @@ const LoginForm = ({ formik }) => (
     <Grid container spacing={2}>
       <Grid item xs={12}>
         <TextField
-          label="Email Address"
-          name="email"
-          value={formik.values.email}
+          label="username"
+          name="username"
+          value={formik.values.username}
           onChange={formik.handleChange}
-          error={formik.touched.email && Boolean(formik.errors.email)}
-          helperText={formik.touched.email && formik.errors.email}
-          id="email"
+          error={formik.touched.username && Boolean(formik.errors.username)}
+          helperText={formik.touched.username && formik.errors.username}
+          id="username"
         />
       </Grid>
       <Grid item xs={12}>

@@ -1,7 +1,7 @@
 import React from "react";
 import { Container, Grid, Typography } from "@mui/material";
 // import { useNavigate } from "react-router-dom";
-// import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import {
@@ -11,14 +11,14 @@ import {
   INVALID_EMAIL_ADDRESS,
   PASSWORD_REQUIRED,
 } from "constants/features/auth";
-// import { registerUser } from "../actions/auth.actions";
+import { register } from "../auth.actions";
 import { Stack } from "../auth.styles";
 import RegistrationForm from "./registrationForm";
 // import SnackBar from "../../../elements/SnackBar";
 
-export const Registration = () => {
+const Registration = () => {
   // const navigate = useNavigate();
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   // const [error, setError] = useState("");
   // const [open, setOpen] = useState(true);
   // const authState = useSelector((state) => state?.authentication);
@@ -47,19 +47,18 @@ export const Registration = () => {
 
   const handleSubmit = (values) => {
     const { username, email, password, confirmPassword } = values;
-    const jsonData = {
-      username,
-      email,
-      password,
-      confirmPassword,
-    };
-    // eslint-disable-next-line no-console
-    console.log(
-      jsonData,
-      "the json data =============================================>"
-    );
-    // dispatch(registerUser(jsonData));
+    if (confirmPassword === password) {
+      const jsonData = {
+        userName: username,
+        email,
+        password,
+      };
+      dispatch(register(jsonData));
+    } else {
+      console.warn("wrong password =====================================>");
+    }
   };
+
   return (
     <Container component="main" maxWidth="xs">
       <Stack mt={20}>

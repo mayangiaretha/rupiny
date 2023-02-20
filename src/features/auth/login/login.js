@@ -5,13 +5,8 @@ import { useDispatch } from "react-redux";
 import { Formik } from "formik";
 import * as Yup from "yup";
 // import { Logo } from "components/logo";
-import {
-  EMAIL_REQUIRED,
-  INVALID_EMAIL_ADDRESS,
-  PASSWORD_REQUIRED,
-} from "constants/features/auth";
+import { PASSWORD_REQUIRED, USER_NAME_REQUIRED } from "constants/features/auth";
 // import SnackBar from "elements/SnackBar";
-// import { loginUser } from "../actions/auth.actions";
 import LoginForm from "./loginForm";
 import { Stack } from "../auth.styles";
 import { login } from "../auth.actions";
@@ -22,19 +17,18 @@ export const Login = () => {
   // const [open, setOpen] = useState(true);
   const dispatch = useDispatch();
 
-  const defaultValues = { email: "", password: "" };
+  const defaultValues = { username: "", password: "" };
   const yupObject = Yup.object({
-    email: Yup.string().email(INVALID_EMAIL_ADDRESS).required(EMAIL_REQUIRED),
+    username: Yup.string().required(USER_NAME_REQUIRED),
     password: Yup.string().required(PASSWORD_REQUIRED),
   });
 
   const handleSubmit = async (values) => {
-    const { email, password } = values;
+    const { username, password } = values;
     const jsonData = {
-      email,
+      userName: username,
       password,
     };
-    // eslint-disable-next-line no-console
     dispatch(login(jsonData));
   };
 
@@ -50,7 +44,7 @@ export const Login = () => {
           </Typography>
         </Grid>
         <Typography variant="h6" mt={5} mb={4}>
-          Please enter your email address and password.
+          Please enter your username and password.
         </Typography>
         <Formik
           initialValues={defaultValues}
