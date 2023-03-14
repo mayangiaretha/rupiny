@@ -1,21 +1,30 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Container, Grid, Typography } from "@mui/material";
-// import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { Formik } from "formik";
 import * as Yup from "yup";
 // import { Logo } from "components/logo";
 import { PASSWORD_REQUIRED, USER_NAME_REQUIRED } from "constants/features/auth";
-// import SnackBar from "elements/SnackBar";
+import SnackBar from "../../../elements/snackBar/snackBar";
 import LoginForm from "./loginForm";
 import { Stack } from "../auth.styles";
 import { login } from "../auth.actions";
 
 export const Login = () => {
-  // const navigate = useNavigate();
-  // const [error, setError] = useState("");
+  const navigate = useNavigate();
+  const [error, setError] = useState("");
   // const [open, setOpen] = useState(true);
   const dispatch = useDispatch();
+  const authState = useSelector((state) => state?.auth);
+
+  useEffect(() => {
+    if (authState?.error) {
+      setError(authState.error);
+    } else if (authState.isAuthenticated) {
+      navigate("/");
+    }
+  }, [authState]);
 
   const defaultValues = { username: "", password: "" };
   const yupObject = Yup.object({
@@ -34,6 +43,8 @@ export const Login = () => {
 
   return (
     <Container component="main" maxWidth="xs">
+      <SnackBar message={error} />
+
       <Stack mt={20}>
         <Grid container justify="flex-start">
           <Typography variant="h3">{/* <Logo size="big" /> */}</Typography>
