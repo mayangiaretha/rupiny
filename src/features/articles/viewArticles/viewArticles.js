@@ -8,9 +8,7 @@ const ViewArticles = () => {
   const dispatch = useDispatch();
   const [allArticles, setAllArticles] = useState([]);
 
-  const articlesState = useSelector(
-    (state) => state?.articles?.articles?.articles
-  );
+  const articlesState = useSelector((state) => state?.articles?.articles);
   useEffect(() => {
     dispatch(getAllArticles());
   }, []);
@@ -24,8 +22,12 @@ const ViewArticles = () => {
   return (
     <>
       <Navbar />
-      {allArticles.length &&
-        allArticles.map((article) => <ViewArticlesCard article={article} />)}
+      <div>
+        {allArticles.length &&
+          allArticles.map((article) => (
+            <ViewArticlesCard key={article.id} article={article} />
+          ))}
+      </div>
     </>
   );
 };

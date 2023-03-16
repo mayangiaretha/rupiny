@@ -6,7 +6,7 @@ export const getAllArticles = createAsyncThunk(
   async (credentials, thunkAPI) => {
     try {
       const response = await instance.get("/articles", credentials);
-      return response.data;
+      return response.data.articles;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
     }
