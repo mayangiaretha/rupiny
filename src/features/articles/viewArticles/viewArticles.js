@@ -23,9 +23,11 @@ const ViewArticles = () => {
     <>
       <Navbar />
       <div>
-        {allArticles.length &&
+        {allArticles.length > 0 &&
           allArticles.map((article) => (
-            <ViewArticlesCard key={article.id} article={article} />
+            <div key={article?.articleId}>
+              <ViewArticlesCard article={article} />
+            </div>
           ))}
       </div>
     </>
