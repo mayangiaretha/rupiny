@@ -1,45 +1,50 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Container, Grid, Typography } from "@mui/material";
-// import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { Formik } from "formik";
 import * as Yup from "yup";
 // import { Logo } from "components/logo";
-import {
-  EMAIL_REQUIRED,
-  INVALID_EMAIL_ADDRESS,
-  PASSWORD_REQUIRED,
-} from "constants/features/auth";
-// import SnackBar from "elements/SnackBar";
-// import { loginUser } from "../actions/auth.actions";
+import { PASSWORD_REQUIRED, USER_NAME_REQUIRED } from "constants/features/auth";
+import SnackBar from "../../../elements/snackBar/snackBar";
 import LoginForm from "./loginForm";
 import { Stack } from "../auth.styles";
 import { login } from "../auth.actions";
 
 export const Login = () => {
-  // const navigate = useNavigate();
-  // const [error, setError] = useState("");
+  const navigate = useNavigate();
+  const [error, setError] = useState("");
   // const [open, setOpen] = useState(true);
   const dispatch = useDispatch();
+  const authState = useSelector((state) => state?.auth);
 
-  const defaultValues = { email: "", password: "" };
+  useEffect(() => {
+    if (authState?.error) {
+      setError(authState.error);
+    } else if (authState.isAuthenticated) {
+      navigate("/");
+    }
+  }, [authState]);
+
+  const defaultValues = { username: "", password: "" };
   const yupObject = Yup.object({
-    email: Yup.string().email(INVALID_EMAIL_ADDRESS).required(EMAIL_REQUIRED),
+    username: Yup.string().required(USER_NAME_REQUIRED),
     password: Yup.string().required(PASSWORD_REQUIRED),
   });
 
   const handleSubmit = async (values) => {
-    const { email, password } = values;
+    const { username, password } = values;
     const jsonData = {
-      email,
+      userName: username,
       password,
     };
-    // eslint-disable-next-line no-console
     dispatch(login(jsonData));
   };
 
   return (
     <Container component="main" maxWidth="xs">
+      <SnackBar message={error} />
+
       <Stack mt={20}>
         <Grid container justify="flex-start">
           <Typography variant="h3">{/* <Logo size="big" /> */}</Typography>
@@ -50,7 +55,7 @@ export const Login = () => {
           </Typography>
         </Grid>
         <Typography variant="h6" mt={5} mb={4}>
-          Please enter your email address and password.
+          Please enter your username and password.
         </Typography>
         <Formik
           initialValues={defaultValues}

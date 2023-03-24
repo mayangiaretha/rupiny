@@ -9,12 +9,12 @@ const RegistrationForm = ({ formik }) => (
     <Grid container spacing={2}>
       <Grid item xs={12}>
         <TextField
-          label=" username"
+          label="username"
           name="username"
           value={formik.values.username}
           onChange={formik.handleChange}
-          error={formik.touched.userName && Boolean(formik.errors.username)}
-          helperText={formik.touched.userName && formik.errors.username}
+          error={formik.touched.username && Boolean(formik.errors.username)}
+          helperText={formik.touched.username && formik.errors.username}
           id="username"
         />
       </Grid>

@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Container, Grid, Typography } from "@mui/material";
-// import { useNavigate } from "react-router-dom";
-// import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import {
@@ -11,25 +11,24 @@ import {
   INVALID_EMAIL_ADDRESS,
   PASSWORD_REQUIRED,
 } from "constants/features/auth";
-// import { registerUser } from "../actions/auth.actions";
+import { register } from "../auth.actions";
 import { Stack } from "../auth.styles";
 import RegistrationForm from "./registrationForm";
-// import SnackBar from "../../../elements/SnackBar";
+import SnackBar from "../../../elements/snackBar/snackBar";
 
-export const Registration = () => {
-  // const navigate = useNavigate();
-  // const dispatch = useDispatch();
-  // const [error, setError] = useState("");
+const Registration = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [error, setError] = useState("");
   // const [open, setOpen] = useState(true);
-  // const authState = useSelector((state) => state?.authentication);
-  // useEffect(() => {
-  //   if (authState?.error && Object.keys(authState?.error).length > 0) {
-  //     setError(Object.values(authState.error)[0]);
-  //     setOpen(true);
-  //   } else if (authState?.isAuthenticated) {
-  //     navigate("/dashboard");
-  //   }
-  // }, [authState]);
+  const authState = useSelector((state) => state?.auth);
+  useEffect(() => {
+    if (authState?.error) {
+      setError(authState.error);
+    } else if (authState?.isAuthenticated) {
+      navigate("/");
+    }
+  }, [authState]);
 
   const defaultValues = {
     username: "",
@@ -47,21 +46,21 @@ export const Registration = () => {
 
   const handleSubmit = (values) => {
     const { username, email, password, confirmPassword } = values;
-    const jsonData = {
-      username,
-      email,
-      password,
-      confirmPassword,
-    };
-    // eslint-disable-next-line no-console
-    console.log(
-      jsonData,
-      "the json data =============================================>"
-    );
-    // dispatch(registerUser(jsonData));
+    if (confirmPassword === password) {
+      const jsonData = {
+        userName: username,
+        email,
+        password,
+      };
+      dispatch(register(jsonData));
+    } else {
+      console.warn("wrong password =====================================>");
+    }
   };
+
   return (
     <Container component="main" maxWidth="xs">
+      <SnackBar message={error} />
       <Stack mt={20}>
         <Grid container justify="flex-start">
           <Typography variant="h3" />
