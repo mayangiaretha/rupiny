@@ -13,7 +13,7 @@ export const getAllArticles = createAsyncThunk(
   }
 );
 export const getArticleWithId = createAsyncThunk(
-  "/articles",
+  "getAnarticle",
   async (credentials, thunkAPI) => {
     try {
       const response = await instance.get("/articles/:id", credentials);
@@ -24,7 +24,7 @@ export const getArticleWithId = createAsyncThunk(
   }
 );
 export const updateAnArticle = createAsyncThunk(
-  "/articles",
+  "/updateArticles",
   async (credentials, thunkAPI) => {
     try {
       const response = await instance.put("/articles/:id", credentials);
@@ -36,7 +36,7 @@ export const updateAnArticle = createAsyncThunk(
 );
 
 export const deleteAnArticle = createAsyncThunk(
-  "/articles",
+  "deleteAnArticle",
   async (credentials, thunkAPI) => {
     try {
       const response = await instance.put("/articles/:id", credentials);
@@ -47,7 +47,7 @@ export const deleteAnArticle = createAsyncThunk(
   }
 );
 export const postAnArticle = createAsyncThunk(
-  "/articles",
+  "postAnArticle",
   async (credentials, thunkAPI) => {
     try {
       const response = await instance.post("/articles", credentials);

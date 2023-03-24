@@ -2,16 +2,13 @@ import { createSlice } from "@reduxjs/toolkit";
 import {
   getAllArticles,
   // postAnArticle,
-  // getArticleWithId,
+  getArticleWithId,
   // updateAnArticle,
   // deleteAnArticle,
 } from "./articles.actions";
 
 const initialState = {
-  articles: {
-    articles: [],
-    message: "",
-  },
+  articles: [],
   article: {},
   error: "",
   delete: false,
@@ -21,16 +18,35 @@ const articleSlice = createSlice({
   name: "article",
   initialState,
   extraReducers: (builder) => {
-    builder.addCase(getAllArticles.fulfilled, (state, action) => ({
-      ...state,
-      articles: action.payload,
-      error: "",
-      delete: false,
-    }));
-    // })
-    // .addCase(getArticleWithId.fulfilled, (state, action) => {
-    //   state.article = action.payload;
-    // })
+    builder
+      .addCase(getAllArticles.fulfilled, (state, action) => ({
+        ...state,
+        articles: action.payload,
+        error: "",
+        delete: false,
+        article: {},
+      }))
+      .addCase(getAllArticles.rejected, (state, action) => ({
+        ...state,
+        articles: [],
+        error: action.payload,
+        delete: false,
+        article: {},
+      }))
+      .addCase(getArticleWithId.fulfilled, (state, action) => ({
+        ...state,
+        articles: [],
+        error: "",
+        delete: false,
+        article: action.payload,
+      }))
+      .addCase(getArticleWithId.rejected, (state, action) => ({
+        ...state,
+        articles: [],
+        error: action.payload,
+        delete: false,
+        article: {},
+      }));
     // .addCase(updateAnArticle.fulfilled, (state, action) => {
     //   state.article = action.payload;
     // })
@@ -42,6 +58,7 @@ const articleSlice = createSlice({
     // })
     // .addCase(postAnArticle.fulfilled, (state, action) => {
     //   state.articles.push(action.payload);
+    // });
   },
 });
 

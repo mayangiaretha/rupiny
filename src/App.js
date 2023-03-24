@@ -4,8 +4,10 @@ import { ThemeProvider } from "@mui/material/styles";
 import { CssBaseline } from "@mui/material";
 import Routes from "router";
 import { theme } from "styles/theme";
+import { getTokenData } from "./utils/getToken";
 
 function App() {
+  getTokenData();
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
