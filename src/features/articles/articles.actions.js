@@ -13,7 +13,7 @@ export const getAllArticles = createAsyncThunk(
   }
 );
 export const getArticleWithId = createAsyncThunk(
-  "getAnarticle",
+  "getAnArticle",
   async (credentials, thunkAPI) => {
     try {
       const response = await instance.get("/articles/:id", credentials);
