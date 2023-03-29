@@ -64,7 +64,7 @@ const RegistrationForm = ({ formik }) => (
         </Button>
       </Grid>
       <Grid item xs={12}>
-        <Link to="/" style={{ textDecoration: "none" }}>
+        <Link to="/login" style={{ textDecoration: "none" }}>
           <Typography variant="h6">Already have an account? Sign in</Typography>
         </Link>
       </Grid>

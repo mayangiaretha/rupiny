@@ -1,5 +1,5 @@
 import React from "react";
-import { StyledButton } from "./CustomButton.style";
+import { StyledButton } from "./customButton.style";
 
 const CustomButton = ({
   children,

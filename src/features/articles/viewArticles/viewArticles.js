@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Container, Grid } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import ViewArticlesCard from "./viewArticlesCard";
 import { getAllArticles } from "../articles.actions";
@@ -22,14 +23,16 @@ const ViewArticles = () => {
   return (
     <>
       <Navbar />
-      <div>
-        {allArticles.length > 0 &&
-          allArticles.map((article) => (
-            <div key={article?.articleId}>
-              <ViewArticlesCard article={article} />
-            </div>
-          ))}
-      </div>
+      <Container>
+        <Grid container spacing={4} mt={2}>
+          {allArticles.length > 0 &&
+            allArticles.map((article) => (
+              <Grid item xs={12} sm={4} md={4} lg={4} key={article.articleId}>
+                <ViewArticlesCard article={article} />
+              </Grid>
+            ))}
+        </Grid>
+      </Container>
     </>
   );
 };
