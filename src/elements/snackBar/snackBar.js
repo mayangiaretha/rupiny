@@ -8,12 +8,13 @@ const SnackBar = ({
   severity = "error",
   vertical = "top",
   message = "This is an error message!",
+  setError,
 }) => {
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
       return;
     }
-
+    setError("");
     setOpen(false);
   };
 
