@@ -1,12 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Container, Grid, Typography } from "@mui/material";
 import { Stack } from "@mui/system";
 import KebabMenu from "components/kebabMenu/kebabMenu";
+import DeleteModal from "components/deleteModal/deleteModal";
+import { useDispatch } from "react-redux";
+import { deleteAnArticle } from "../articles.actions";
 
 const Article = ({ article }) => {
-  const { title, description, author } = article;
+  const dispatch = useDispatch();
+  const { title, description, author, articleId } = article;
+  const [openDelete, setOpenDelete] = useState(false);
   const navigate = useNavigate();
+
+  const handleDelete = async () => {
+    await dispatch(deleteAnArticle(articleId));
+    setOpenDelete(false);
+    navigate("/");
+  };
+
   return (
     <Container>
       <Grid container spacing={2}>
@@ -27,11 +39,16 @@ const Article = ({ article }) => {
                   },
                 },
                 {
+                  label: "Edit Story",
+                  onClick: () => {
+                    navigate("/article/create");
+                  },
+                },
+                {
                   label: "Delete story",
-                  // onClick: () => {
-                  //   handleUpdateColumnName?.(ele);
-                  //   handleColumnDetails?.();
-                  // },
+                  onClick: () => {
+                    setOpenDelete(true);
+                  },
                 },
               ]}
             />
@@ -45,6 +62,15 @@ const Article = ({ article }) => {
           <Typography>{author?.userName}</Typography>
         </Grid>
       </Grid>
+      {openDelete && (
+        <DeleteModal
+          open={openDelete}
+          handleClick={() => setOpenDelete(false)}
+          title={title}
+          handleRemoveClick={() => handleDelete()}
+          subtitle={title}
+        />
+      )}
     </Container>
   );
 };
