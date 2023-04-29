@@ -25,9 +25,9 @@ const ViewArticlesCard = ({ article }) => {
         <Typography variant="body2" color="text.secondary">
           {author.userName}
         </Typography>
-        <Typography gutterBottom variant="h2" component="div">
+        <StyledTypography gutterBottom variant="h2" component="div">
           {title}
-        </Typography>
+        </StyledTypography>
         <StyledTypography gutterBottom variant="h5" component="div">
           {description}
         </StyledTypography>
