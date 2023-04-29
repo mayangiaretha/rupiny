@@ -6,6 +6,7 @@ import {
   CardMedia,
   Typography,
 } from "@mui/material";
+import { Link } from "react-router-dom";
 import { StyledTypography, More } from "./viewArticle.styles";
 import { COLORS } from "../../../styles/theme";
 
@@ -13,7 +14,7 @@ const stockImage =
   "https://s3.amazonaws.com/gv2016wp/wp-content/uploads/20150624200319/150624-The_Current_state_of_blogging_1200x628-01.png";
 
 const ViewArticlesCard = ({ article }) => {
-  const { author, title, description, articleUrl } = article;
+  const { author, title, description, articleUrl, articleId } = article;
   return (
     <Card>
       <CardMedia
@@ -34,7 +35,9 @@ const ViewArticlesCard = ({ article }) => {
       </CardContent>
       <CardActions>
         <More size="small" fontcolor={COLORS.BLUE} border="none">
-          <Typography variant="h6">Read More</Typography>
+          <Link to={`/article/${articleId}`} style={{ textDecoration: "none" }}>
+            <Typography variant="h6">Read More</Typography>
+          </Link>
         </More>
       </CardActions>
     </Card>
