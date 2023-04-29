@@ -14,10 +14,10 @@ export const getAllArticles = createAsyncThunk(
 );
 export const getArticleWithId = createAsyncThunk(
   "getAnArticle",
-  async (credentials, thunkAPI) => {
+  async (id, thunkAPI) => {
     try {
-      const response = await instance.get("/articles/:id", credentials);
-      return response.data;
+      const response = await instance.get(`/articles/${id}`);
+      return response.data.article;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
     }
@@ -37,9 +37,9 @@ export const updateAnArticle = createAsyncThunk(
 
 export const deleteAnArticle = createAsyncThunk(
   "deleteAnArticle",
-  async (credentials, thunkAPI) => {
+  async (id, thunkAPI) => {
     try {
-      const response = await instance.put("/articles/:id", credentials);
+      const response = await instance.delete(`/articles/${id}`);
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
