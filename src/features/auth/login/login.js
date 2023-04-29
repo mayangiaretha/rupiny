@@ -14,7 +14,7 @@ import { login } from "../auth.actions";
 export const Login = () => {
   const navigate = useNavigate();
   const [error, setError] = useState("");
-  // const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(true);
   const dispatch = useDispatch();
   const authState = useSelector((state) => state?.auth);
 
@@ -43,7 +43,14 @@ export const Login = () => {
 
   return (
     <Container component="main" maxWidth="xs">
-      <SnackBar message={error} />
+      {error.length > 0 && (
+        <SnackBar
+          message={error}
+          open={open}
+          setOpen={setOpen}
+          setError={setError}
+        />
+      )}
 
       <Stack mt={20}>
         <Grid container justify="flex-start">

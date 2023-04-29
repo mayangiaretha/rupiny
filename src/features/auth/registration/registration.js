@@ -20,7 +20,7 @@ const Registration = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [error, setError] = useState("");
-  // const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(true);
   const authState = useSelector((state) => state?.auth);
   useEffect(() => {
     if (authState?.error) {
@@ -60,7 +60,14 @@ const Registration = () => {
 
   return (
     <Container component="main" maxWidth="xs">
-      <SnackBar message={error} />
+      {error.length > 0 && (
+        <SnackBar
+          message={error}
+          open={open}
+          setOpen={setOpen}
+          setError={setError}
+        />
+      )}
       <Stack mt={20}>
         <Grid container justify="flex-start">
           <Typography variant="h3" />
